@@ -22,15 +22,15 @@
         <div class="form-content">
           <div class="login-form">
             <div class="title">Login</div>
-          <form action="#">
+          <form method="post" action="login_process.php">
             <div class="input-boxes">
               <div class="input-box">
                 <i class="fa-solid fa-circle-user"></i>
-                <input type="text" placeholder="Enter your username" required>
+                <input type="text" name="username" placeholder="Enter your username" required>
               </div>
               <div class="input-box">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Enter your password" required>
+                <input type="password" name="password" placeholder="Enter your password" required>
               </div>
               <div class="text"><a href="#">Forgot password?</a></div>
               <div class="button input-box">
@@ -42,15 +42,15 @@
       </div>
         <div class="signup-form">
           <div class="title">Signup</div>
-        <form action="#">
+        <form method="post" action="register_process.php">
             <div class="input-boxes">
               <div class="input-box">
                 <i class="fa-solid fa-user-plus"></i>
-                <input type="text" placeholder="Enter your name" required>
+                <input type="text" name="username" placeholder="Enter your name" required>
               </div>
              <div class="input-box">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Enter your password" required>
+                <input type="password" name="password" placeholder="Enter your password" required>
               </div>
               <div class="button input-box">
                 <input type="submit" value="Sumbit">
