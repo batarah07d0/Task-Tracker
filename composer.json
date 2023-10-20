@@ -1,0 +1,16 @@
+{
+    "name": "axel/task-tracker",
+    "autoload": {
+        "psr-4": {
+            "Axel\\TaskTracker\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mOdrA40",
+            "email": "axelginald88@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
