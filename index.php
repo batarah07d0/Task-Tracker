@@ -8,13 +8,12 @@ include('db.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
-    <link rel="stylesheet" href="style.css">
+    <title>To-Do List | Form Account</title>
+    <link rel="stylesheet" href="index.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 </head>
 
 <body>
@@ -40,7 +39,6 @@ include('db.php');
                                 <i class="fas fa-lock"></i>
                                 <input type="password" name="password" placeholder="Enter your password" required>
                             </div>
-                            <div class="text"><a href="#">Forgot password?</a></div>
                             <div class="button input-box">
                                 <input type="submit" value="Sumbit">
                             </div>
