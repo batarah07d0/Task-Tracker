@@ -11,12 +11,14 @@ $stmt->execute([$username]);
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if(!$row){
-    echo "User not found.";
+    // User Not Found
+    header('location: index.php?error-username=User not Found');
 } else {
     if(!password_verify($password, $row['password'])){
-        echo "Wrong password";
+        // Wrong Password
+        header('location: index.php?error-password=Wrong Password');
     } else {
-        // $_SESSION['user_id'] = $row['id_user'];
+        // Correct Password
         $_SESSION['username'] = $row['username'];
         header('location: task_tracker.php');
     }
