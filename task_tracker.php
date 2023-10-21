@@ -150,6 +150,10 @@
             </ul>
         </div>
     </div>
+</head>
+
+<body>
+    <a type="button" href="logout.php" class="btn btn-primary">Log out</a>
 </body>
 
 </html>
