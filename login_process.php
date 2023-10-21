@@ -18,7 +18,7 @@ if(!$row){
     } else {
         // $_SESSION['user_id'] = $row['id_user'];
         $_SESSION['username'] = $row['username'];
-        header('location: index.php');
+        header('location: task_tracker.php');
     }
 }
 ?>
