@@ -1,4 +1,5 @@
 <?php
+
 // DB Credential
 define('DSN', 'mysql:host=localhost;dbname=tasktracker');
 define('DBUSER', 'root');
@@ -19,3 +20,13 @@ try {
 } catch (PDOException $e) {
     echo "Failed to connect to the database: " . $e->getMessage();
 }
+=======
+
+define('DSN','mysql:host=localhost;dbname=todolist');
+define('DBUSER','root');
+define('DBPASS','');
+
+
+$pdo = new PDO(DSN,DBUSER,DBPASS);
+?>
+

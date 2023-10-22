@@ -5,6 +5,7 @@ require_once ('db.php');
 $username = $_POST['username'];
 $password = $_POST['password'];
 
+
 // Sanitize and validate user input
 $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -12,9 +13,14 @@ $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CH
 
 
 $sql = "SELECT * FROM account WHERE username = ?";
+
+
+$sql = "SELECT * FROM useraccount WHERE username = ?";
+
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$username]);
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
 
 if(!$row){
     // User Not Found
@@ -32,4 +38,21 @@ if(!$row){
       
     }
 }
+?>
+
+
+if(!$row){
+    echo "User not found.";
+} else {
+    if(!password_verify($password, $row['password'])){
+        echo "Wrong password";
+    } else {
+        // $_SESSION['user_id'] = $row['id_user'];
+        $_SESSION['username'] = $row['username'];
+        header('location: dia.php');
+    }
+
+}
+
+
 ?>
