@@ -2,17 +2,20 @@
 session_start();
 include('db.php');
 
+date_default_timezone_set("Asia/Jakarta");
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['task_id'])) {
     $task_id = $_POST['task_id'];
     $judul = $_POST['judul'];
     $deskripsi = $_POST['deskripsi'];
     $progress = $_POST['progress'];
-    $time = new DateTime($_POST['time']);
-    $formattedTime = $time->format('Y-m-d H:i:s');
+    $time = date('Y-m-d H:i:s'); 
+
 
     $sql = "UPDATE task SET judul = ?, deskripsi = ?, progress = ?, time = ? WHERE task_id = ?";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$judul, $deskripsi, $progress, $formattedTime,$task_id]);
+    $stmt->execute([$judul, $deskripsi, $progress, $time,$task_id]);
+    $formattedTime = date('d-m-Y H:i:s', strtotime($time));
 
     // Redirect kembali ke halaman task_tracker.php setelah pembaruan
     header('location: task_tracker.php');
@@ -45,8 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['task_id'])) {
                             <input type="hidden" name="task_id" value="<?= $editTask['task_id'] ?>">
                             <input type="text" name="judul" value="<?= $editTask['judul'] ?>" placeholder="Task title" required>
                             <input type="text" name="deskripsi" value="<?= $editTask['deskripsi'] ?>" placeholder="Task description">
-                            <input type="datetime-local" name="time" value="<?= date('Y-m-d\TH:i', strtotime($editTask['time'])) ?>">
-                            <select name="progress">
+                                <select name="progress">
                                 <option value="Not yet started"<?= ($editTask['progress'] === 'Not yet started') ? ' selected' : '' ?>>Not yet started</option>
                                 <option value="In progress"<?= ($editTask['progress'] === 'In progress') ? ' selected' : '' ?>>In progress</option>
                                 <option value="Waiting on"<?= ($editTask['progress'] === 'Waiting on') ? ' selected' : '' ?>>Waiting on</option>

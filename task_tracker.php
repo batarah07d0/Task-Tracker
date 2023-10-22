@@ -2,12 +2,6 @@
 session_start();
 include('db.php');
 
-// if (!isset($_SESSION['user_id'])) {
-//     header('location: index.php');
-//     exit();
-// }
-
-// $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 
 
@@ -33,7 +27,6 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <form action="add_task.php" method="post">
             <input type="text" name="judul" placeholder="Task title" required>
             <input type="text" name="deskripsi" placeholder="Task description">
-            <input type="datetime-local" name="time">
             <select name="progress">
                 <option value="Not yet started">Not yet started</option>
                 <option value="In progress">In progress</option>
@@ -50,7 +43,7 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <p><?= $task['deskripsi'] ?></p>
                     <p>Progress: <?= $task['progress'] ?></p>
                     <p>Status: <?= $task['status'] ?></p>
-                    <p>Time: <?= date('Y-m-d H:i', strtotime($task['time'])) ?></p>
+                    <p>Created at: <?= date('d-m-Y H:i:s', strtotime($task['time'])) ?></p>
                     <a href="edit_task.php?task_id=<?= $task['task_id'] ?>">Edit</a>
                     <a href="delete_task.php?task_id=<?= $task['task_id'] ?>">Delete</a>
                     <a href="markasdone.php?task_id=<?= $task['task_id'] ?>">Mark Completed</a>
