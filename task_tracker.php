@@ -1,3 +1,16 @@
+<?php
+session_start();
+include('db.php');
+
+$username = $_SESSION['username'];
+
+// Ambil daftar tugas dari database
+$sql = "SELECT * FROM task";
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
     <link rel="stylesheet" href="task_tracker.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
     function updateDateTime() {
@@ -37,123 +51,114 @@
 
     // Update date and time every second (1000 milliseconds)
     setInterval(updateDateTime, 1000);
-
-    function checked(id) {
-        var checked_green = document.getElementById("check" + id);
-        checked_green.classList.toggle('green');
-        var strike_unstrike = document.getElementById("strike" + id);
-        strike_unstrike.classList.toggle('strike_none');
-    }
     </script>
 </head>
 
 <body>
     <div class="flex justify-center items-center min-h-screen bg-[#cbd7e3]">
-        <div class="h-auto  w-96 bg-white rounded-lg p-4">
+        <div class="h-auto  w-6/12 bg-white rounded-lg p-4">
             <div class="mt-0 text-sm text-[#8ea6c8] flex justify-between items-center">
                 <p class="set_date"></p>
                 <p class="set_time"></p>
             </div>
+            <h1 class="text-lg text-[#063c76]">Welcome, <?= $username ?>!</h1>
             <p class="text-2xl font-semibold mt-2 text-[#063c76]">To-do List</p>
-            <div class="add-items d-flex">
-                <input name="new_task" type="text"
-                    class="min-w-0 flex-auto rounded-md border-0 bg-[#e4efff] px-6 py-2 text-black shadow-sm focus:ring-2 focus:ring-[#8ea6c8] sm:text-sm sm:leading-6"
-                    placeholder="What do you want to do?">
-                <button type="submit"
-                    class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Add</button>
-            </div>
+            <form action="add_task.php" method="post">
+                <div class="add-items flex">
+                    <input name="judul" type="text"
+                        class="text-center min-w-0 flex-auto rounded-md bg-[#e0ebff] mr-2 placeholder-[#063c76] text-[#063c76] shadow-sm sm:text-sm sm:leading-6"
+                        placeholder="Title" required>
+                    <input name="deskripsi" type="text"
+                        class="text-center min-w-0 flex-auto rounded-md bg-[#e0ebff] mr-2 placeholder-[#063c76] text-[#063c76] shadow-sm sm:text-sm sm:leading-6"
+                        placeholder="Description">
+                    <select
+                        class="text-[#063c76] text-center min-w-0 flex-auto rounded-md bg-[#e0ebff] mr-2 shadow-sm sm:text-sm sm:leading-6"
+                        name="progress">
+                        <option
+                            class="text-[#063c76] text-center min-w-0 flex-auto rounded-md bg-[#e0ebff] mr-2 shadow-sm sm:text-sm sm:leading-6"
+                            value="Not Started">Not Started</option>
+                        <option
+                            class="text-center min-w-0 flex-auto rounded-md bg-[#e0ebff] mr-2 shadow-sm sm:text-sm sm:leading-6"
+                            value="On Progress">On Progress</option>
+                        <option
+                            class="text-center min-w-0 flex-auto rounded-md bg-[#e0ebff] mr-2 shadow-sm sm:text-sm sm:leading-6"
+                            value="Waiting On">Waiting On</option>
+                    </select>
+                    <button type="submit"
+                        class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Add
+                        Task</button>
+                </div>
+            </form>
+
             <ul class="my-4 ">
+                <?php foreach ($tasks as $task) : ?>
                 <li class=" mt-4" id="1">
                     <div class="flex gap-2">
                         <div class="w-9/12 h-12 bg-[#e0ebff] rounded-[7px] flex justify-start items-center px-3">
-                            <span id="check1"
-                                class=" w-7 h-7 bg-white rounded-full border border-white transition-all cursor-pointer hover:border-[#36d344] flex justify-center items-center"
-                                onclick="checked(1)"><i class="text-white fa fa-check"></i></span>
-                            <strike id="strike1" class="strike_none text-sm ml-4 text-[#5b7a9d] font-semibold">take out
-                                the trash</strike>
+                            <p class="text-sm ml-4 text-[#063c76] font-semibold"><?= $task['judul'] ?></p>
                         </div>
-                        <span
-                            class="w-1/4 h-12 bg-[#e0ebff] rounded-[7px] flex justify-center text-sm text-[#5b7a9d] font-semibold items-center ">9:00
-                            AM</span>
-                    </div>
-                </li>
-                <li class=" mt-4" id="2">
-                    <div class="flex gap-2">
                         <div class="w-9/12 h-12 bg-[#e0ebff] rounded-[7px] flex justify-start items-center px-3">
-                            <span id="check2"
-                                class=" w-7 h-7 bg-white rounded-full border border-white transition-all cursor-pointer hover:border-[#36d344] flex justify-center items-center"
-                                onclick="checked(2)"><i class="text-white fa fa-check"></i></span>
-                            <strike id="strike2" class="strike_none text-sm ml-4 text-[#5b7a9d] font-semibold">do
-                                homework </strike>
+                            <p class="text-sm ml-4 text-[#063c76] font-semibold"><?= $task['deskripsi'] ?></p>
+                        </div>
+                        <div class="w-2/4 h-12 bg-[#e0ebff] rounded-[7px] flex justify-start items-center px-3">
+                            <select
+                                class="text-[#063c76] text-center min-w-0 flex-auto rounded-md bg-[#e0ebff] mr-2 shadow-sm sm:text-sm sm:leading-6"
+                                name="progress">
+                                <option class=" text-[#063c76] text-center min-w-0 flex-auto rounded-md bg-[#e0ebff] mr-2
+                                shadow-sm sm:text-sm sm:leading-6" value="0"
+                                    <?= ($task['progress'] === 0) ? ' selected' : '' ?>>Not Started
+                                </option>
+                                <option
+                                    class="text-center min-w-0 flex-auto rounded-md bg-[#e0ebff] mr-2 shadow-sm sm:text-sm sm:leading-6"
+                                    value="1" <?= ($task['progress'] === 1) ? ' selected' : '' ?>>On Progress
+                                </option>
+                                <option
+                                    class="text-center min-w-0 flex-auto rounded-md bg-[#e0ebff] mr-2 shadow-sm sm:text-sm sm:leading-6"
+                                    value="2" <?= ($task['progress'] === 2) ? ' selected' : '' ?>>Waiting On
+                                </option>
+                            </select>
+                        </div>
+                        <div class="w-1/4 h-12 bg-[#e0ebff] rounded-[7px] flex justify-start items-center px-3">
+                            <select
+                                class="text-[#063c76] text-center min-w-0 flex-auto rounded-md bg-[#e0ebff] mr-2 shadow-sm sm:text-sm sm:leading-6"
+                                name="status">
+                                <option
+                                    class="text-center min-w-0 flex-auto rounded-md bg-[#e0ebff] mr-2 shadow-sm sm:text-sm sm:leading-6"
+                                    value="2" <?= ($task['status'] === 1) ? ' selected' : '' ?>>Done
+                                </option>
+                            </select>
                         </div>
                         <span
-                            class="w-1/4 h-12 bg-[#e0ebff] rounded-[7px] flex justify-center text-sm text-[#5b7a9d] font-semibold items-center ">12:00
-                            PM</span>
-                    </div>
-                </li>
-                <li class=" mt-4" id="3">
-                    <div class="flex gap-2">
-                        <div class="w-9/12 h-12 bg-[#e0ebff] rounded-[7px] flex justify-start items-center px-3">
-                            <span id="check3"
-                                class=" w-7 h-7 bg-white rounded-full border border-white transition-all cursor-pointer hover:border-[#36d344] flex justify-center items-center"
-                                onclick="checked(3)"><i class="text-white fa fa-check"></i></span>
-                            <strike id="strike3" class="strike_none  text-sm ml-4 text-[#5b7a9d] font-semibold">go to
-                                grocery store</strike>
+                            class="w-2/4 h-12 bg-[#e0ebff] rounded-[7px] flex justify-center text-sm text-[#063c76] font-semibold items-center "><?= date('d-m-Y', strtotime($task['time'])) ?></span>
+                        <div>
+                            <form method="post" action="edit_task.php?task_id=<?= $task['task_id'] ?>">
+                                <button type="submit"
+                                    class="flex-none rounded-md bg-red-700 px-3.5 h-12 shadow-sm hover:bg-red-800">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </form>
                         </div>
-                        <span
-                            class="w-1/4 h-12 bg-[#e0ebff] rounded-[7px] flex justify-center text-sm text-[#5b7a9d] font-semibold items-center ">1:00
-                            PM</span>
-                    </div>
-                </li>
-                <li class=" mt-4" id="4">
-                    <div class="flex gap-2">
-                        <div class="w-9/12 h-12 bg-[#e0ebff] rounded-[7px] flex justify-start items-center px-3">
-                            <span id="check4"
-                                class=" w-7 h-7 bg-white rounded-full border border-white transition-all cursor-pointer hover:border-[#36d344] flex justify-center items-center"
-                                onclick="checked(4)"><i class="text-white fa fa-check"></i></span>
-                            <strike id="strike4" class="strike_none text-sm ml-4 text-[#5b7a9d] font-semibold">run 5
-                                kilometers</strike>
+                        <div>
+                            <a href="delete_task.php?task_id=<?= $task['task_id'] ?>">
+                                <button type="button"
+                                    class="flex-none rounded-md bg-red-700 px-3.5 h-12 shadow-sm hover:bg-red-800"><i
+                                        class="fas fa-trash-alt"></i>
+                                </button>
+                            </a>
                         </div>
-                        <span
-                            class="w-1/4 h-12 bg-[#e0ebff] rounded-[7px] flex justify-center text-sm text-[#5b7a9d] font-semibold items-center ">4:20
-                            PM</span>
                     </div>
                 </li>
-                <li class=" mt-4" id="5">
-                    <div class="flex gap-2">
-                        <div class="w-9/12 h-12 bg-[#e0ebff] rounded-[7px] flex justify-start items-center px-3">
-                            <span id="check5"
-                                class=" w-7 h-7 bg-white rounded-full border border-white transition-all cursor-pointer hover:border-[#36d344] flex justify-center items-center"
-                                onclick="checked(5)"><i class="text-white fa fa-check"></i></span>
-                            <strike id="strike5" class="strike_none text-sm ml-4 text-[#5b7a9d] font-semibold">load the
-                                dishwasher</strike>
-                        </div>
-                        <span
-                            class="w-1/4 h-12 bg-[#e0ebff] rounded-[7px] flex justify-center text-sm text-[#5b7a9d] font-semibold items-center ">9:00
-                            PM</span>
-                    </div>
-                </li>
-                <li class=" mt-4" id="6">
-                    <div class="flex gap-2">
-                        <div class="w-9/12 h-12 bg-[#e0ebff] rounded-[7px] flex justify-start items-center px-3">
-                            <span id="check6"
-                                class=" w-7 h-7 bg-white rounded-full border border-white transition-all cursor-pointer hover:border-[#36d344] flex justify-center items-center"
-                                onclick="checked(6)"><i class="text-white fa fa-check"></i></span>
-                            <strike id="strike6" class="strike_none text-sm ml-4 text-[#5b7a9d] font-semibold">Take out
-                                the trash</strike>
-                        </div>
-                        <span
-                            class="w-1/4 h-12 bg-[#e0ebff] rounded-[7px] flex justify-center text-sm text-[#5b7a9d] font-semibold items-center ">9:00
-                            AM</span>
-                    </div>
-                </li>
+                <?php endforeach; ?>
             </ul>
+            <form method="post" action="logout.php">
+                <button type="submit"
+                    class="flex-none rounded-md bg-red-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-800">
+                    Log Out
+                </button>
+            </form>
+
         </div>
     </div>
-</head>
-
-<body>
-    <a type="button" href="logout.php" class="btn btn-primary">Log out</a>
 </body>
 
 </html>
