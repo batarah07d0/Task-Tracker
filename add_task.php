@@ -9,9 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $judul = $_POST['judul'];
     $deskripsi = $_POST['deskripsi'];
     $progress = $_POST['progress'];
-    $status = "Not Completed"; // Status default
+    $status = ""; 
     $time = date('Y-m-d H:i:s'); // Format waktu ke dalam string sesuai dengan format TIMESTAMP
 
+  
     $sql = "INSERT INTO task (user_id, judul, deskripsi, progress, status, time) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$user_id, $judul, $deskripsi, $progress, $status, $time]);

@@ -3,7 +3,7 @@
 define('DSN', 'mysql:host=localhost;dbname=tasktracker');
 define('DBUSER', 'root');
 define('DBPASS', '');
-
+// Opsi Ketat
 try {
     // 1. Connect to DB
     $pdo = new PDO(DSN, DBUSER, DBPASS);
@@ -19,4 +19,11 @@ try {
 } catch (PDOException $e) {
     echo "Failed to connect to the database: " . $e->getMessage();
 }
+
+// Opsi Biasa
+// $pdo = new PDO(DSN, DBUSER, DBPASS);
+
+// if (!$pdo) {
+//         echo "Failed to connect to the database.";
+//     } 
 ?>

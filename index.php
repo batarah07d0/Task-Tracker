@@ -43,14 +43,14 @@ include('db.php');
                             }?>
                             <div class="input-box">
                                 <i class="fas fa-lock"></i>
-                                <input type="password" name="password" placeholder="Enter your password" required>
+                                <input type="password" name="password" placeholder="Enter your password"  required>
                             </div>
                             <?php if(isset($_GET['error-password'])) { ?>
                             <p class="error"><?php echo $_GET['error-password'] ?></p>
                             <?php
                             }?>
                             <div class="button input-box">
-                                <input type="submit" value="Sumbit">
+                                <input type="submit" value="Submit">
                             </div>
                             <div class="text sign-up-text">Don't have an account? <label for="flip">Signup now</label>
                             </div>
@@ -63,14 +63,14 @@ include('db.php');
                         <div class="input-boxes">
                             <div class="input-box">
                                 <i class="fa-solid fa-user-plus"></i>
-                                <input type="text" name="username" placeholder="Enter your name" required>
+                                <input type="text" name="username" placeholder="Enter your name"  required>
                             </div>
                             <div class="input-box">
                                 <i class="fas fa-lock"></i>
                                 <input type="password" name="password" placeholder="Enter your password" required>
                             </div>
                             <div class="button input-box">
-                                <input type="submit" value="Sumbit">
+                                <input type="submit" value="Submit">
                             </div>
                             <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label>
                             </div>
