@@ -3,11 +3,12 @@ session_start();
 include('db.php');
 
 $username = $_SESSION['username'];
+$user_id = $_SESSION['user_id'];
 
 // Ambil daftar tugas dari database
-$sql = "SELECT * FROM task";
+$sql = "SELECT * FROM task WHERE user_id = ?";
 $stmt = $pdo->prepare($sql);
-$stmt->execute();
+$stmt->execute([$user_id]);
 $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 

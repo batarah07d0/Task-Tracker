@@ -53,11 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['task_id'])) {
                     <input type="hidden" name="task_id" value="<?= $editTask['task_id'] ?>">
                     <input
                         class="text-center min-w-0 flex-auto rounded-md bg-[#e0ebff] mr-2 placeholder-[#063c76] text-[#063c76] shadow-sm sm:text-sm sm:leading-6"
-                        placeholder="Title" type="text" name="judul" value="<?= $editTask['judul'] ?>"
-                        placeholder="Task title" required>
+                        type="text" name="judul" value="<?= $editTask['judul'] ?>" placeholder="Task title" required>
                     <input
                         class="text-center min-w-0 flex-auto rounded-md bg-[#e0ebff] mr-2 placeholder-[#063c76] text-[#063c76] shadow-sm sm:text-sm sm:leading-6"
-                        placeholder="Title" type="text" name="deskripsi" value="<?= $editTask['deskripsi'] ?>"
+                        type="text" name="deskripsi" value="<?= $editTask['deskripsi'] ?>"
                         placeholder="Task description">
                     <select
                         class="text-[#063c76] text-center min-w-0 flex-auto rounded-md bg-[#e0ebff] mr-2 shadow-sm sm:text-sm sm:leading-6"
