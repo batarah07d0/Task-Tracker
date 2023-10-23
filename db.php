@@ -19,11 +19,4 @@ try {
 } catch (PDOException $e) {
     echo "Failed to connect to the database: " . $e->getMessage();
 }
-
-// Opsi Biasa
-// $pdo = new PDO(DSN, DBUSER, DBPASS);
-
-// if (!$pdo) {
-//         echo "Failed to connect to the database.";
-//     } 
 ?>
