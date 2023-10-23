@@ -141,11 +141,8 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                     </div>
                 </li>
-                <<<<<<< HEAD <?php endforeach; ?> </ul>
-                    <form method="post" action="logout.php">
-                        =======
-                        <?php endif; ?>
-                        <?php endforeach; ?>
+                <?php endif; ?>
+                <?php endforeach; ?>
             </ul>
             <p class="text-lg font-semibold text-[#063c76]">Completed</p>
             <ul class="mb-3" id="comp">
@@ -182,7 +179,6 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </ul>
 
             <form method="post" action="form/logout.php">
-                >>>>>>> batara
                 <button type="submit"
                     class="flex-none rounded-md bg-red-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-800">
                     Log Out
