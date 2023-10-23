@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 20, 2023 at 07:32 PM
+-- Generation Time: Oct 23, 2023 at 06:59 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -30,16 +30,16 @@ SET time_zone = "+00:00";
 CREATE TABLE `account` (
   `user_id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `task_id` int(11) NOT NULL
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `account`
 --
 
-INSERT INTO `account` (`user_id`, `username`, `password`, `task_id`) VALUES
-(1, 'admin', '12345', 1);
+INSERT INTO `account` (`user_id`, `username`, `password`) VALUES
+(7, 'Batara', '$2y$10$85vHDPQxVr1YeM/kzszCt.NwyeKhtG0PLWZzwcZo.Vr4wWhwZYRj6'),
+(8, 'Agus', '$2y$10$Uih2eDv/bBzpcgYe60XO6utWG/Eoii0uekycULiHWWRi3.VyqUUF6');
 
 -- --------------------------------------------------------
 
@@ -52,7 +52,7 @@ CREATE TABLE `task` (
   `user_id` int(11) NOT NULL,
   `judul` varchar(255) NOT NULL,
   `deskripsi` varchar(255) NOT NULL,
-  `progress` tinyint(3) NOT NULL,
+  `progress` tinyint(1) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -62,7 +62,7 @@ CREATE TABLE `task` (
 --
 
 INSERT INTO `task` (`task_id`, `user_id`, `judul`, `deskripsi`, `progress`, `status`, `time`) VALUES
-(1, 1, 'cuci baju', 'cuci baju kuliah', 2, 1, '2023-10-20 17:19:31');
+(25, 7, 'UTS-WebProg', 'Mengerjakan Project UTS-WebProg Lecture dan Laboratory Sampe Tanggal 24', 2, 0, '2023-10-23 16:38:38');
 
 --
 -- Indexes for dumped tables
@@ -74,9 +74,7 @@ INSERT INTO `task` (`task_id`, `user_id`, `judul`, `deskripsi`, `progress`, `sta
 ALTER TABLE `account`
   ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `username` (`username`),
-  ADD KEY `username_2` (`username`),
-  ADD KEY `task_id` (`task_id`),
-  ADD KEY `task_id_2` (`task_id`);
+  ADD KEY `username_2` (`username`);
 
 --
 -- Indexes for table `task`
@@ -93,23 +91,17 @@ ALTER TABLE `task`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `account`
---
-ALTER TABLE `account`
-  ADD CONSTRAINT `account_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`);
 
 --
 -- Constraints for table `task`
