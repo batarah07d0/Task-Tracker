@@ -29,7 +29,7 @@ include('db.php');
             <div class="form-content">
                 <div class="login-form">
                     <div class="title">Login</div>
-                    <form method="post" action="login_process.php">
+                    <form method="post" action="form/login_process.php">
                         <div class="input-boxes">
                             <div class="input-box">
                                 <i class="fa-solid fa-circle-user"></i>
@@ -50,7 +50,7 @@ include('db.php');
                             <?php
                             }?>
                             <div class="button input-box">
-                                <input type="submit" value="Sumbit">
+                                <input type="submit" value="Submit">
                             </div>
                             <div class="text sign-up-text">Don't have an account? <label for="flip">Signup now</label>
                             </div>
@@ -59,7 +59,7 @@ include('db.php');
                 </div>
                 <div class="signup-form">
                     <div class="title">Signup</div>
-                    <form method="post" action="register_process.php">
+                    <form method="post" action="form/register_process.php">
                         <div class="input-boxes">
                             <div class="input-box">
                                 <i class="fa-solid fa-user-plus"></i>
@@ -70,7 +70,7 @@ include('db.php');
                                 <input type="password" name="password" placeholder="Enter your password" required>
                             </div>
                             <div class="button input-box">
-                                <input type="submit" value="Sumbit">
+                                <input type="submit" value="Submit">
                             </div>
                             <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label>
                             </div>

@@ -3,7 +3,7 @@
 define('DSN', 'mysql:host=localhost;dbname=tasktracker');
 define('DBUSER', 'root');
 define('DBPASS', '');
-
+// Opsi Ketat
 try {
     // 1. Connect to DB
     $pdo = new PDO(DSN, DBUSER, DBPASS);
