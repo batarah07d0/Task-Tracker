@@ -178,7 +178,7 @@ $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach; ?>
             </ul>
 
-            <form method="post" action="form/logout.php">
+            <form method="post" action="logout.php">
                 <button type="submit"
                     class="flex-none rounded-md bg-red-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-800">
                     Log Out
